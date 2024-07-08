@@ -26,21 +26,19 @@ function addMoodToHistory(mood, notes) {
 
     listItem.className = getMoodClass(mood);
     listItem.innerHTML = `
-        <span class="mood">${mood}</span>
-        <span class="notes">${notes}</span>
+        <div class="mood">
+            <span>${mood}</span>
+            <span class="notes">${notes}</span>
+        </div>
         <span>${formattedDateTime}</span>
         <div class="actions">
-            <button onclick="editMood(this)">Edit</button>
-            <button onclick="deleteMood(this)">Delete</button>
+            <button onclick="deleteMood(this)"><i class="fas fa-trash"></i></button>
         </div>
     `;
     moodHistory.appendChild(listItem);
 
     // Save to local storage
     saveMoodToLocalStorage({ mood, notes, formattedDateTime });
-
-    // Save to "file" in local storage
-    saveToFile({ mood, notes, formattedDateTime });
 }
 
 function getMoodClass(mood) {
@@ -67,12 +65,13 @@ function loadMoodHistory() {
         const listItem = document.createElement('li');
         listItem.className = getMoodClass(entry.mood);
         listItem.innerHTML = `
-            <span class="mood">${entry.mood}</span>
-            <span class="notes">${entry.notes}</span>
+            <div class="mood">
+                <span>${entry.mood}</span>
+                <span class="notes">${entry.notes}</span>
+            </div>
             <span>${entry.formattedDateTime}</span>
             <div class="actions">
-                <button onclick="editMood(this)">Edit</button>
-                <button onclick="deleteMood(this)">Delete</button>
+                <button onclick="deleteMood(this)"><i class="fas fa-trash"></i></button>
             </div>
         `;
         moodHistory.appendChild(listItem);
@@ -84,45 +83,16 @@ function deleteMood(button) {
     listItem.remove();
 
     // Update local storage
-    const moodText = listItem.querySelector('.mood').textContent;
+    const moodText = listItem.querySelector('.mood span').textContent;
     const formattedDateTime = listItem.querySelector('span:last-child').textContent;
     let moods = JSON.parse(localStorage.getItem('moods')) || [];
     moods = moods.filter(mood => !(mood.mood === moodText && mood.formattedDateTime === formattedDateTime));
     localStorage.setItem('moods', JSON.stringify(moods));
-
-    // Update "file" in local storage
-    saveToTextFile(moods);
-}
-
-function editMood(button) {
-    const listItem = button.parentElement.parentElement;
-    const mood = listItem.querySelector('.mood').textContent;
-    const notes = listItem.querySelector('.notes').textContent;
-
-    document.getElementById('mood').value = mood;
-    document.getElementById('notes').value = notes;
-
-    deleteMood(button);
 }
 
 function clearAllMoods() {
     localStorage.removeItem('moods');
     document.getElementById('moodHistory').innerHTML = '';
-    localStorage.removeItem('moodFile');
-}
-
-function saveToFile(moodEntry) {
-    let moodFile = localStorage.getItem('moodFile') || '';
-    moodFile += `${moodEntry.mood} | ${moodEntry.notes} | ${moodEntry.formattedDateTime}\n`;
-    localStorage.setItem('moodFile', moodFile);
-}
-
-function saveToTextFile(moods) {
-    let moodFile = '';
-    moods.forEach(moodEntry => {
-        moodFile += `${moodEntry.mood} | ${moodEntry.notes} | ${moodEntry.formattedDateTime}\n`;
-    });
-    localStorage.setItem('moodFile', moodFile);
 }
 
 // Load mood history on page load
