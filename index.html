@@ -13,16 +13,20 @@
             <label for="mood">How are you feeling today?</label>
             <select id="mood" required>
                 <option value="">Select Mood</option>
-                <option value="😊 Happy">😊 Happy</option>
-                <option value="😢 Sad">😢 Sad</option>
-                <option value="😟 Anxious">😟 Anxious</option>
-                <option value="😡 Angry">😡 Angry</option>
-                <option value="😃 Excited">😃 Excited</option>
+                <option value="happy">😊 Happy</option>
+                <option value="sad">😢 Sad</option>
+                <option value="anxious">😟 Anxious</option>
+                <option value="angry">😡 Angry</option>
+                <option value="excited">😃 Excited</option>
             </select>
             <button type="submit">Track Mood</button>
         </form>
-        <h2>Mood History</h2>
+        <h2 id="moodHistoryHeader" style="display: none;">Mood History</h2>
         <ul id="moodHistory"></ul>
+        <button id="clearHistory" style="display: none;">Clear All</button>
+        <footer>
+            <p>Powered by <a href="https://github.com/ZigaoWang/mood-tracker/">Mood Tracker</a> by <a href="https://zigao.wang">Zigao Wang</a>.</p>
+        </footer>
     </div>
     <script src="script.js"></script>
 </body>

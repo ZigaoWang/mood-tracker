@@ -1,43 +1,68 @@
-document.getElementById('moodForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const moodForm = document.getElementById('moodForm');
+    const moodSelect = document.getElementById('mood');
+    const moodHistory = document.getElementById('moodHistory');
+    const moodHistoryHeader = document.getElementById('moodHistoryHeader');
+    const clearHistoryButton = document.getElementById('clearHistory');
 
-    const mood = document.getElementById('mood').value;
-    if (mood) {
-        addMoodToHistory(mood);
-        document.getElementById('mood').value = '';
+    // Load mood history from localStorage
+    const savedMoods = JSON.parse(localStorage.getItem('moodHistory')) || [];
+    if (savedMoods.length > 0) {
+        moodHistoryHeader.style.display = 'block';
+        clearHistoryButton.style.display = 'block';
+        savedMoods.forEach(mood => {
+            const li = document.createElement('li');
+            li.innerHTML = `${mood.text} <span class="date">${mood.timestamp}</span>`;
+            li.classList.add(`mood-${mood.value}`);
+            moodHistory.appendChild(li);
+        });
     }
-});
 
-function addMoodToHistory(mood) {
-    const moodHistory = document.getElementById('moodHistory');
-    const listItem = document.createElement('li');
+    moodForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const mood = moodSelect.value;
 
-    const dateTime = new Date();
-    const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    const formattedDateTime = dateTime.toLocaleDateString('en-US', options).replace(',', '');
+        if (mood) {
+            const moodText = moodSelect.options[moodSelect.selectedIndex].text;
+            const timestamp = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
 
-    listItem.innerHTML = `<span>${mood}</span><span>${formattedDateTime}</span>`;
-    moodHistory.appendChild(listItem);
+            // Create list item
+            const li = document.createElement('li');
+            li.innerHTML = `${moodText} <span class="date">${timestamp}`;
+            li.classList.add(`mood-${mood}`);
+            moodHistory.appendChild(li);
 
-    // Save to local storage
-    saveMoodToLocalStorage({ mood, formattedDateTime });
-}
+            // Save to localStorage
+            savedMoods.push({ text: moodText, value: mood, timestamp: timestamp });
+            localStorage.setItem('moodHistory', JSON.stringify(savedMoods));
 
-function saveMoodToLocalStorage(moodEntry) {
-    let moods = JSON.parse(localStorage.getItem('moods')) || [];
-    moods.push(moodEntry);
-    localStorage.setItem('moods', JSON.stringify(moods));
-}
+            // Show the mood history header and clear button
+            moodHistoryHeader.style.display = 'block';
+            clearHistoryButton.style.display = 'block';
 
-function loadMoodHistory() {
-    const moods = JSON.parse(localStorage.getItem('moods')) || [];
-    const moodHistory = document.getElementById('moodHistory');
-    moods.forEach(entry => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `<span>${entry.mood}</span><span>${entry.formattedDateTime}</span>`;
-        moodHistory.appendChild(listItem);
+            // Clear the select input
+            moodSelect.value = '';
+        }
     });
-}
 
-// Load mood history on page load
-document.addEventListener('DOMContentLoaded', loadMoodHistory);
+    clearHistoryButton.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear all mood history?')) {
+            // Clear the mood history list
+            moodHistory.innerHTML = '';
+
+            // Clear localStorage
+            localStorage.removeItem('moodHistory');
+
+            // Hide the mood history header and clear button
+            moodHistoryHeader.style.display = 'none';
+            clearHistoryButton.style.display = 'none';
+        }
+    });
+});

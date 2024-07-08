@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
@@ -16,12 +16,14 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 h1 {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
 }
 
 form {
@@ -30,7 +32,7 @@ form {
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     font-size: 16px;
     color: #555;
 }
@@ -59,10 +61,11 @@ button:hover {
 ul {
     list-style-type: none;
     padding: 0;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 li {
-    background-color: #f0f0f5;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 8px;
@@ -70,4 +73,47 @@ li {
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+}
+
+.mood-happy {
+    background-color: #a5d6a7;
+}
+
+.mood-sad {
+    background-color: #90caf9;
+}
+
+.mood-anxious {
+    background-color: #ffcc80;
+}
+
+.mood-angry {
+    background-color: #ff9a9a;
+}
+
+.mood-excited {
+    background-color: #ffeb3b;
+}
+
+.date {
+    margin-left: auto;
+    font-size: 0.8em;
+    color: #555;
+}
+
+footer {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.7em;
+    color: #777;
+    border-top: 1px solid #eaeaea;
+}
+
+footer a {
+    color: #007aff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
