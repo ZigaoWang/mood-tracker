@@ -28,6 +28,7 @@ function addMoodToHistory(mood, notes) {
     listItem.innerHTML = `
         <div class="mood">
             <span>${mood}</span>
+            <i class="fas fa-comment-dots"></i>
             <span class="notes">${notes}</span>
         </div>
         <span>${formattedDateTime}</span>
@@ -67,6 +68,7 @@ function loadMoodHistory() {
         listItem.innerHTML = `
             <div class="mood">
                 <span>${entry.mood}</span>
+                <i class="fas fa-comment-dots"></i>
                 <span class="notes">${entry.notes}</span>
             </div>
             <span>${entry.formattedDateTime}</span>

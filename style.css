@@ -16,6 +16,8 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 400px;
     text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 h1 {
@@ -77,7 +79,7 @@ ul {
 }
 
 li {
-    padding: 15px;
+    padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
     display: flex;
@@ -86,6 +88,7 @@ li {
     font-size: 16px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
 }
 
 li .mood {
@@ -97,7 +100,9 @@ li .mood {
 li .notes {
     display: block;
     font-size: 14px;
-    color: #777;
+    color: #555;
+    width: 100%;
+    margin-top: 5px;
 }
 
 li .actions {
@@ -117,7 +122,7 @@ li button:hover {
     color: #c53030;
 }
 
-li .fa-trash {
+li .fa-trash, li .fa-comment-dots {
     font-size: 18px;
 }
 
