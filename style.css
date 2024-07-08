@@ -20,6 +20,8 @@ body {
 
 h1 {
     margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
 }
 
 form {
@@ -33,13 +35,17 @@ label {
     color: #555;
 }
 
-select, button {
+select, textarea, button {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
+}
+
+textarea {
+    height: 80px;
 }
 
 button {
@@ -68,4 +74,56 @@ li {
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+    position: relative;
+}
+
+li span {
+    display: block;
+}
+
+li button {
+    background: none;
+    border: none;
+    color: #007aff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+li button:hover {
+    text-decoration: underline;
+}
+
+li .mood {
+    flex: 1;
+}
+
+li .notes {
+    display: block;
+    font-size: 14px;
+    color: #777;
+}
+
+li .actions {
+    display: flex;
+    align-items: center;
+}
+
+.mood-happy {
+    background-color: #ffeb3b;
+}
+
+.mood-sad {
+    background-color: #90caf9;
+}
+
+.mood-anxious {
+    background-color: #ffccbc;
+}
+
+.mood-angry {
+    background-color: #ef9a9a;
+}
+
+.mood-excited {
+    background-color: #a5d6a7;
 }
