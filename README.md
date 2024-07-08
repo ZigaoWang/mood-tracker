@@ -10,10 +10,6 @@ A simple web application to track your daily mood. Built with 💜 by [Zigao Wan
 - Persistent mood history using localStorage.
 - Responsive design for both desktop and mobile.
 
-## Demo
-
-Check out the live demo: [Mood Tracker](https://your-demo-url.com)
-
 ## Screenshots
 
 <img src="https://github.com/ZigaoWang/mood-tracker/assets/102006756/c6e46a3d-c724-498c-87aa-d9995bc980e6" alt="Mood Tracker Screenshot" width="400">
